@@ -1,18 +1,17 @@
 #!/usr/bin/env python
 
-from sys import argv
-
-mode=1
-out = []
-for i in range(1, len(argv)):
-	for c in argv[i]:
+def strip_html(line):
+	mode = 1
+	out = ""
+	for c in line:
 		if c == '<':
 			mode = 0
-		if c == '>':
+		elif c == '>':
 			mode = 1
-			continue
-		if mode == 1:
-			out.append(c)
-	out.append(' ')
+		elif mode == 1:
+			out = out + c
 
-print ''.join(out)
+	return out
+
+print strip_html("<b>Hello</b> Philip!")
+print strip_html('<b>Hello</b> <a href="www.google.com">Philip!</a>')
